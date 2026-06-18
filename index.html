@@ -278,6 +278,69 @@
       const form = document.getElementById("admissionForm");
       const toastContainer = document.getElementById("toastContainer");
 
+      // ===== Input restrictions =====
+      function restrictToDigits(el) {
+        if (!el) return;
+        el.addEventListener("input", () => {
+          const cleaned = el.value.replace(/\D+/g, "");
+          if (el.value !== cleaned) {
+            el.value = cleaned;
+            el.selectionStart = el.selectionEnd = el.value.length;
+          }
+        });
+        el.addEventListener("keypress", (e) => {
+          if (
+            !/^[0-9]$/.test(e.key) &&
+            e.key !== "Backspace" &&
+            !e.ctrlKey &&
+            !e.metaKey
+          ) {
+            e.preventDefault();
+          }
+        });
+        el.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const text =
+            (e.clipboardData || window.clipboardData).getData("text") || "";
+          el.value = (el.value + text).replace(/\D+/g, "");
+        });
+      }
+
+      function restrictToLetters(el) {
+        if (!el) return;
+        el.addEventListener("input", () => {
+          const cleaned = el.value.replace(/[^A-Za-z\s]/g, "");
+          if (el.value !== cleaned) {
+            el.value = cleaned;
+            el.selectionStart = el.selectionEnd = el.value.length;
+          }
+        });
+        el.addEventListener("keypress", (e) => {
+          if (
+            !/^[A-Za-z\s]$/.test(e.key) &&
+            e.key !== "Backspace" &&
+            !e.ctrlKey &&
+            !e.metaKey
+          ) {
+            e.preventDefault();
+          }
+        });
+        el.addEventListener("paste", (e) => {
+          e.preventDefault();
+          const text =
+            (e.clipboardData || window.clipboardData).getData("text") || "";
+          el.value = (el.value + text).replace(/[^A-Za-z\s]/g, "");
+        });
+      }
+
+      // Attach restrictions
+      ["mobile", "parentPhone"].forEach((id) =>
+        restrictToDigits(document.getElementById(id)),
+      );
+      ["fullName", "fatherName", "signatureName", "institution"].forEach((id) =>
+        restrictToLetters(document.getElementById(id)),
+      );
+
       function showToast(message, type = "success") {
         const color = type === "success" ? "#ffc107" : "#ef4444";
         const textColor = type === "success" ? "#000000" : "#ffffff";
