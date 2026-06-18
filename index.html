@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admission · Design Engine</title>
+    <!-- Google Font (Inter) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="admissionForm" class="form-container" novalidate>
+      <!-- Header -->
+      <div class="form-header">
+        <div class="header-left">
+          <div class="logo">
+            <img
+              src="img/logo.webp"
+              alt="Design Engine Logo"
+              style="width: 100%; height: 100%; object-fit: contain"
+            />
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="right-word">Admission</span>
+        </div>
+      </div>
+
+      <!-- STUDENT DETAILS -->
+      <div class="section">
+        <div class="section-title">Student Profile</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              inputmode="text"
+              autocomplete="name"
+              required
+              pattern="[A-Za-z\s]+"
+              title="Only letters and spaces are allowed"
+            />
+          </div>
+          <div class="field">
+            <label>Mobile</label>
+            <input
+              type="text"
+              id="mobile"
+              name="mobile"
+              inputmode="numeric"
+              pattern="[0-9]{10}"
+              maxlength="10"
+              minlength="10"
+              autocomplete="tel"
+              required
+              title="Please enter exactly 10 digits"
+            />
+          </div>
+          <div class="field">
+            <label>Father's Name</label>
+            <input
+              type="text"
+              id="fatherName"
+              name="fatherName"
+              inputmode="text"
+              autocomplete="name"
+              required
+              pattern="[A-Za-z\s]+"
+              title="Only letters and spaces are allowed"
+            />
+          </div>
+          <div class="field">
+            <label>Parent Phone</label>
+            <input
+              type="text"
+              id="parentPhone"
+              name="parentPhone"
+              inputmode="numeric"
+              pattern="[0-9]{10}"
+              maxlength="10"
+              minlength="10"
+              autocomplete="tel"
+              required
+              title="Please enter exactly 10 digits"
+            />
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>Date of Birth</label>
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              autocomplete="bday"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>Present Address</label>
+            <input
+              type="text"
+              id="presentAddress"
+              name="presentAddress"
+              inputmode="text"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>Permanent Address</label>
+            <input
+              type="text"
+              id="permanentAddress"
+              name="permanentAddress"
+              inputmode="text"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- COURSE DETAILS -->
+      <div class="section">
+        <div class="section-title">Course</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Course Applied For</label>
+            <input
+              type="text"
+              id="courseApplied"
+              name="courseApplied"
+              inputmode="text"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- EDUCATION BACKGROUND -->
+      <div class="section">
+        <div class="section-title">Education</div>
+        <div class="field" style="margin-bottom: 1rem">
+          <label>Current Status</label>
+          <div class="inline-group">
+            <label
+              ><input
+                type="radio"
+                name="status"
+                value="School Student"
+                required
+              />
+              School</label
+            >
+            <label
+              ><input type="radio" name="status" value="College Student" />
+              College</label
+            >
+            <label
+              ><input type="radio" name="status" value="Graduate" />
+              Graduate</label
+            >
+            <label
+              ><input type="radio" name="status" value="Other" /> Other</label
+            >
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Current Class / Year</label>
+            <select id="currentClass" name="currentClass" required>
+              <option value="10th">10th</option>
+              <option value="12th">12th</option>
+              <option value="First Year">First Year</option>
+              <option value="Second Year">Second Year</option>
+              <option value="Third Year">Third Year</option>
+              <option value="Final Year">Final Year</option>
+              <option value="Other" selected>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Stream</label>
+            <select id="stream" name="stream" required>
+              <option value="Science">Science</option>
+              <option value="Commerce">Commerce</option>
+              <option value="Arts">Arts</option>
+              <option value="Other" selected>Other</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column: 1 / -1">
+            <label>Institution</label>
+            <input
+              type="text"
+              id="institution"
+              name="institution"
+              inputmode="text"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- DECLARATION -->
+      <div class="section" style="border-bottom: none; padding-bottom: 0">
+        <div class="section-title">Declaration</div>
+        <div class="declaration-box">
+          <div class="confirm-text">
+            <span class="check">✓</span> I confirm that the information provided
+            is accurate and complete.
+          </div>
+          <div class="signature-area">
+            <div class="signature-field">
+              <label>Date</label>
+              <input
+                type="date"
+                id="declarationDate"
+                name="declarationDate"
+                required
+              />
+            </div>
+            <div class="signature-field">
+              <label>Enter Name</label>
+              <input
+                type="text"
+                id="signatureName"
+                name="signatureName"
+                inputmode="text"
+                required
+                pattern="[A-Za-z\s]+"
+                title="Only letters and spaces are allowed"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="action-row">
+        <button type="submit" class="btn-submit" id="submitFormBtn">
+          Submit
+        </button>
+      </div>
+      <div
+        id="toastContainer"
+        style="margin-top: 0.8rem; text-align: right"
+      ></div>
+    </form>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Form Script -->
+    <script>
+      // ============================================================
+      // ✅ SUPABASE CREDENTIALS - CORRECT
+      // ============================================================
+      const supabaseUrl = "https://xahxbhrpsxlrrfyqubud.supabase.co";
+      const supabaseKey = "sb_publishable_EadwlJRAR2hzhgXcC3r-Iw_rgp98PUZ";
+      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+      const form = document.getElementById("admissionForm");
+      const toastContainer = document.getElementById("toastContainer");
+
+      function showToast(message, type = "success") {
+        const color = type === "success" ? "#ffc107" : "#ef4444";
+        const textColor = type === "success" ? "#000000" : "#ffffff";
+        toastContainer.innerHTML = `
+          <div style="
+            display: inline-block;
+            background: ${color};
+            color: ${textColor};
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+          ">
+            ${message}
+          </div>
+        `;
+        setTimeout(() => {
+          toastContainer.innerHTML = "";
+        }, 5000);
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Get form values
+        const formData = {
+          full_name: document.getElementById("fullName").value.trim(),
+          mobile: document.getElementById("mobile").value.trim(),
+          father_name: document.getElementById("fatherName").value.trim(),
+          parent_phone: document.getElementById("parentPhone").value.trim(),
+          email: document.getElementById("email").value.trim(),
+          dob: document.getElementById("dob").value,
+          present_address: document
+            .getElementById("presentAddress")
+            .value.trim(),
+          permanent_address: document
+            .getElementById("permanentAddress")
+            .value.trim(),
+          course_applied: document.getElementById("courseApplied").value.trim(),
+          current_status:
+            document.querySelector('input[name="status"]:checked')?.value || "",
+          current_class: document.getElementById("currentClass").value,
+          stream: document.getElementById("stream").value,
+          institution: document.getElementById("institution").value.trim(),
+          declaration_date: document.getElementById("declarationDate").value,
+          signature_name: document.getElementById("signatureName").value.trim(),
+        };
+
+        // Validate all fields
+        for (let [key, value] of Object.entries(formData)) {
+          if (!value || value === "") {
+            showToast(`Please fill ${key.replace(/_/g, " ")} field`, "error");
+            return;
+          }
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+          showToast("Please enter a valid email address", "error");
+          return;
+        }
+
+        // Phone validation
+        const phoneRegex = /^[0-9]{10}$/;
+        if (
+          !phoneRegex.test(formData.mobile) ||
+          !phoneRegex.test(formData.parent_phone)
+        ) {
+          showToast("Phone numbers must be exactly 10 digits", "error");
+          return;
+        }
+
+        try {
+          // ✅ FIXED: Using CORRECT table name "admission"
+          const { data, error } = await supabase
+            .from("admission") // ← CHANGED FROM "admissions" TO "admission"
+            .insert([formData])
+            .select();
+
+          if (error) {
+            console.error("Supabase error:", error);
+            showToast("❌ Error: " + error.message, "error");
+            return;
+          }
+
+          console.log("✅ Data inserted:", data);
+          showToast("✅ Admission form submitted successfully!");
+
+          // Reset form
+          form.reset();
+
+          // Set default date for declaration
+          document.getElementById("declarationDate").value = new Date()
+            .toISOString()
+            .split("T")[0];
+        } catch (err) {
+          console.error("❌ Error:", err);
+          showToast("❌ Something went wrong: " + err.message, "error");
+        }
+      });
+
+      // Set today's date as default for declaration
+      document.getElementById("declarationDate").value = new Date()
+        .toISOString()
+        .split("T")[0];
+    </script>
+  </body>
+</html>
