@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
 // 🔑 APNI VALUES YAHAN DAALEIN
-const supabaseUrl = 'YOUR_SUPABASE_URL'        // ← Project URL
-const supabaseKey = 'YOUR_SUPABASE_ANON_KEY'   // ← anon public key
+const supabaseUrl = 'https://xahxbhrpsxlrrfyqubud.supabase.co'        // ← Project URL
+const supabaseKey = 'sb_publishable_EadwlJRAR2hzhgXcC3r-Iw_rgp98PUZ'   // ← anon public key
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
