@@ -271,7 +271,9 @@
       // ============================================================
       const supabaseUrl = "https://xahxbhrpsxlrrfyqubud.supabase.co";
       const supabaseKey = "sb_publishable_EadwlJRAR2hzhgXcC3r-Iw_rgp98PUZ";
-      const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+      const supabaseClient =
+        window.supabaseClient ||
+        supabase.createClient(supabaseUrl, supabaseKey);
 
       const form = document.getElementById("admissionForm");
       const toastContainer = document.getElementById("toastContainer");
@@ -352,7 +354,7 @@
 
         try {
           // ✅ FIXED: Using CORRECT table name "admission"
-          const { data, error } = await supabase
+          const { data, error } = await supabaseClient
             .from("admission") // ← CHANGED FROM "admissions" TO "admission"
             .insert([formData])
             .select();
