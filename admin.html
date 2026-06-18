@@ -622,7 +622,9 @@
       // ============================================================
       const supabaseUrl = "https://xahxbhrpsxlrrfyqubud.supabase.co";
       const supabaseKey = "sb_publishable_EadwlJRAR2hzhgXcC3r-Iw_rgp98PUZ";
-      const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+      const supabaseClient =
+        window.supabaseClient ||
+        supabase.createClient(supabaseUrl, supabaseKey);
 
       // ===== STATE =====
       let allData = [];
