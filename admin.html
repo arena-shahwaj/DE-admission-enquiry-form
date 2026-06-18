@@ -518,6 +518,64 @@
         }
       }
 
+      /* Login overlay */
+      .login-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+      .login-overlay.active {
+        display: flex;
+      }
+      .login-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: var(--shadow);
+      }
+      .login-card h2 {
+        margin-bottom: 0.5rem;
+        color: var(--accent);
+      }
+      .login-card input {
+        width: 100%;
+        padding: 0.6rem;
+        margin-bottom: 0.6rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-primary);
+      }
+      .login-card .login-actions {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+      }
+      .login-card .btn {
+        padding: 0.5rem 0.9rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #000;
+        font-weight: 700;
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+      }
+
       ::-webkit-scrollbar {
         width: 4px;
         height: 4px;
@@ -533,7 +591,33 @@
     </style>
   </head>
   <body>
-    <div class="admin-container">
+    <!-- Login overlay (will block access until authenticated) -->
+    <div class="login-overlay" id="loginOverlay">
+      <div class="login-card">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+          <input
+            id="loginUser"
+            placeholder="Username"
+            autocomplete="username"
+            required
+          />
+          <input
+            id="loginPass"
+            type="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          />
+          <div
+            style="display: flex; justify-content: flex-end; margin-top: 0.5rem"
+          >
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="admin-container" style="display: none">
       <!-- HEADER -->
       <div class="admin-header">
         <div class="admin-header-left">
@@ -943,19 +1027,61 @@
         }, 5000);
       }
 
-      // ===== AUTO REFRESH every 30 seconds =====
-      let refreshInterval = setInterval(loadData, 30000);
+      // ===== AUTH + INIT =====
+      const AUTH_KEY = "adminAuthenticated_v1";
+      // Change these credentials as needed (client-side only)
+      const ADMIN_USER = "saket-admission-enquiry";
+      const ADMIN_PASS = "AdmissionSecure2024!";
 
-      // ===== INIT =====
-      loadData();
+      let refreshInterval = null;
 
-      window.addEventListener("beforeunload", () => {
-        clearInterval(refreshInterval);
+      function isAuthenticated() {
+        return sessionStorage.getItem(AUTH_KEY) === "true";
+      }
+
+      function showLoginOverlay() {
+        document.getElementById("loginOverlay").classList.add("active");
+        const c = document.querySelector(".admin-container");
+        if (c) c.style.display = "none";
+      }
+
+      function hideLoginOverlay() {
+        document.getElementById("loginOverlay").classList.remove("active");
+        const c = document.querySelector(".admin-container");
+        if (c) c.style.display = "";
+      }
+
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const u = document.getElementById("loginUser").value.trim();
+        const p = document.getElementById("loginPass").value;
+        if (u === ADMIN_USER && p === ADMIN_PASS) {
+          sessionStorage.setItem(AUTH_KEY, "true");
+          hideLoginOverlay();
+          initApp();
+        } else {
+          showToast("Invalid username or password", "error");
+        }
       });
 
-      window.showToast = showToast;
-      window.viewDetails = viewDetails;
-      window.closeModal = closeModal;
+      function initApp() {
+        loadData();
+        refreshInterval = setInterval(loadData, 30000);
+        window.addEventListener("beforeunload", () => {
+          clearInterval(refreshInterval);
+        });
+
+        window.showToast = showToast;
+        window.viewDetails = viewDetails;
+        window.closeModal = closeModal;
+      }
+
+      if (isAuthenticated()) {
+        hideLoginOverlay();
+        initApp();
+      } else {
+        showLoginOverlay();
+      }
     </script>
   </body>
 </html>
